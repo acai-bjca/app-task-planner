@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -14,37 +14,30 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ImgMediaCard() {
+export default function TaskCard(props) {
   const classes = useStyles();
+  
+  //const taskC = this.props.taskC;
+  console.log("Entro a tarea");
+  console.log("Tarea objeto: "+ JSON.stringify(props.task));
+  console.log("Descripcion objeto: "+ props.task.description);
 
-  return (
+  return (    
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
+      <CardActionArea>        
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {props.task.description}
+          </Typography>
+          <Typography variant="h6" color="textSecondary" component="p">
+            {props.task.status} - {props.task.dueDate}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            {props.task.responsible.name}<br/>
+            {props.task.responsible.email}
           </Typography>
         </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
+      </CardActionArea>      
     </Card>
   );
 }

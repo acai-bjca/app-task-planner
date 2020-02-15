@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {Avatar, AppBar, Toolbar, List, Typography, Divider, Button} from '@material-ui/core';
-import {IconButton, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
-import {ChevronLeft, ChevronRight} from '@material-ui/icons';
-import {Home, Menu, Edit} from '@material-ui/icons';
+import { Avatar, AppBar, Toolbar, List, Typography, Divider, Button } from '@material-ui/core';
+import { IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { ChevronRight } from '@material-ui/icons';
+import { Home, Menu, Edit } from '@material-ui/icons';
 import ImgJerry from '../imagenes/jerry.png';
+import TaskCard from './Card';
 
-const drawerWidth = 300;
+
+const drawerWidth = 320;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -73,6 +75,15 @@ export default function BarraMenu() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [taskC, setTask] = useState({
+    description: "Implements Login View",
+    responsible: {
+      name: "Santiago Carrillo",
+      email: "sancarbar@gmail.com"
+    },
+    status: "Ready",
+    dueDate: "12-05-2013"
+  });
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,7 +110,7 @@ export default function BarraMenu() {
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <Menu/>
+            <Menu />
           </IconButton>
           <Typography variant="h6" noWrap>
             Persistent drawer
@@ -117,17 +128,15 @@ export default function BarraMenu() {
       >
         <div className={classes.drawerHeader}>
           {/*<Avatar alt="Remy Sharp" src="../imagenes/jerry.png" />*/}
-          <Avatar alt="Remy Sharp" src={ImgJerry} />
+          <Avatar alt="Remy Sharp" src={ImgJerry} size="100"/><br />
           <div>
+            <br />
             <label paragraph>Jerry Perez</label>
             <label paragraph>jerryperez@gmail.com</label>
             <Button>
               <ListItemIcon><Edit /></ListItemIcon>
             </Button>
           </div>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}
-          </IconButton>
           <IconButton onClick={handleDrawerClose}>
             <ChevronRight />
           </IconButton>
@@ -139,7 +148,7 @@ export default function BarraMenu() {
             <ListItemText primary="Inicio" />
           </ListItem>
         </List>
-        <Divider />        
+        <Divider />
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -147,8 +156,9 @@ export default function BarraMenu() {
         })}
       >
         <div className={classes.drawerHeader} />
+        <TaskCard task={taskC} />
         <Typography paragraph>
-          Holaaaa
+
         </Typography>
       </main>
     </div>
