@@ -8,7 +8,7 @@ import { IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/c
 import { ChevronRight } from '@material-ui/icons';
 import { Home, Menu, Edit } from '@material-ui/icons';
 import ImgJerry from '../imagenes/jerry.png';
-import TaskCard from './Card';
+import TaskCard from '../Login/Card';
 
 
 const drawerWidth = 320;
@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function BarraMenu() {
+export function BarraMenu() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);

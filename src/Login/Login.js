@@ -1,89 +1,87 @@
-import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Button } from "react-bootstrap";
 import imgUser from "../imagenes/user.png";
 import { makeStyles } from '@material-ui/core/styles';
 import imgFondo from "../imagenes/user.png";
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Input, InputLabel, FormControl, FormLabel, CssBaseline  } from '@material-ui/core';
 import "./Login.css";
-import BarraMenu from "./Drawer";
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > *': {
-            margin: theme.spacing(1),
-            width: theme.spacing(16),
-            height: theme.spacing(16),
-        },
-    },
-}));
-
-export default function Login(props) {
-    const classes = useStyles();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    function validateForm() {
-        return email.length > 0 && password.length > 0;
+export class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { stateEmail: '', statePassword: '', remember: false };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        localStorage.setItem('email', 'amalia');
+        localStorage.setItem('password', 'amalia');
+        localStorage.setItem('remember', false);
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
-    }
-
-    function handleClic(e) {
-        /*if (!this.state.userName || !this.state.passw){
-            return;
-        }if(this.state.userName === localStorage.getItem('username') && this.state.passw === localStorage.getItem('password')){
-            localStorage.setItem('remember', true);
-        }*/
-        localStorage.setItem('username', email);
-        localStorage.setItem('password', password);
-        localStorage.setItem('remember', true);
-    }
-
-    function handleChange(e) {
-        if (e.target.id === 'emailT') {
-            setEmail({ userName: e.target.value });
-        } else if (e.target.id === 'paswT') {
-            setPassword({ passw: e.target.value });
+    handleChange(e){        
+        if(e.target.id === 'email'){
+            this.setState({stateEmail: e.target.value});            
+        }else if(e.target.id === 'pasw'){
+            this.setState({statePassword: e.target.value});            
         }
     }
 
-    return (
-        <div className="Login">
-            <Form >
-                <div className='centered'>
-                    <Paper elevation={3} className='Paper'>
-                        <label id="titulo" >Task Planner.</label><br />
-                        <img id="imgUser" src={imgUser} alt="" />
-                        <Form.Group controlId="formBasicEmail" className="Campo">
-                            <Form.Label className="Campo">Email address</Form.Label><br />
-                            <Form.Control id="emailT" className="InputText" type="email" placeholder="Enter email" onChange={handleChange()} />
-                            <Form.Text className="InputText" className="text-muted">
+    handleClick(e) {
+        if (!this.state.stateEmail || !this.state.statePassword) {
+            return;
+        } if (this.state.stateEmail === localStorage.getItem('email') && this.state.statePassword === localStorage.getItem('password')) {
+            localStorage.setItem('remember', true);
+        }
+    }
 
-                            </Form.Text>
-                        </Form.Group><br />
+    render() {
+        return (
+            <React.Fragment>
+                <CssBaseline />
+                <main className="layout">
+                    <div className="Login centered">
+                        <Paper elevation={3} className='Paper'>
+                            <form className="form">
+                                <label id="titulo" >Task Planner.</label><br />
+                                <img id="imgUser" src={imgUser} alt="" />
+                                <FormControl margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="email">Email Address</InputLabel>
+                                    <Input
+                                        id="email"
+                                        autoComplete="email"
+                                        autoFocus
+                                        onChange={this.handleChange}/>
+                                </FormControl >
+                                <FormControl margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="pasw">Password</InputLabel>
+                                    <Input
+                                        id="pasw"
+                                        autoComplete="current-password"
+                                        onChange={this.handleChange}/>
+                                </FormControl >
+                                <Button 
+                                className='ButtonI' 
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                onClick = {this.handleClick}  >                                
+                                
+                               
+                                Sign in
+                            
 
-                        <Form.Group controlId="formBasicPassword" className="Campo">
-                            <Form.Label className="Campo">Password</Form.Label><br />
-                            <Form.Control id="paswT" className="InputText" type="password" placeholder="Password" onChange={handleChange()} />
-                        </Form.Group><br />
-
-                        <Button className='ButtonI' type="submit" onClick={this.handleClic()}>
-                            <Router>
-                                <div>
+                                </Button><br />
+                                <a href="url" className="Campo">Create Account</a>
+                                {/*<Router>
+                                 <div>
                                     <Route component={localStorage.getItem('remember') ? <BarraMenu /> : <Login />} />
                                 </div>
-                            </Router>
-
-                        </Button><br />
-                        <a href="url" className="Campo">Create Account</a>
-                    </Paper>
-                </div>
-            </Form>
-        </div>
-    );
+                                    </Router>*/}
+                            </form>
+                        </Paper>
+                    </div>
+                </main>
+            </React.Fragment>
+        );
+    }
 }

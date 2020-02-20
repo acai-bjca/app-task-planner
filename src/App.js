@@ -1,28 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import {Login} from "./Login/Login";
+import {BarraMenu} from "./Drawer/Drawer";
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { Drawer } from '@material-ui/core';
 
 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor(props) {
+        super(props);
+        //this.state = {isLoggedIn: false}
+        //console.log('LocalStorage remember '+ JSON.parse(localStorage.getItem('remember')));
+        this.state = {isLoggedIn: JSON.parse(localStorage.getItem('remember'))};
+        
+        const isLogged = JSON.parse(localStorage.getItem('remember'));        
+        this.state = {isLoggedIn: isLogged}      
+    }
+
+    changeView(){       
+        const newIsLoggedIn = this.state.isLoggedIn === false ? true : false;        
+        this.setState({isLoggedIn: newIsLoggedIn});
+    }
+
+    render() {
+        const LoginView = () => (
+            <Login/>
+        );
+
+        const BarraMenu = () => (
+            <BarraMenu/>
+        );
+
+        return (
+            <Router>
+                <div className="App">                     
+                    <div>
+                        <Route component={!this.state.isLoggedIn ? LoginView : BarraMenu}/>
+                    </div>
+                </div>
+            </Router>
+        );
+    }
 }
-
+//App.defaultProps = {isLoggedIn: false}; 
 export default App;
