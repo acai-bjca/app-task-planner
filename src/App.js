@@ -5,8 +5,6 @@ import {BarraMenu} from "./Drawer/Drawer";
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import { Drawer } from '@material-ui/core';
 
-
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -25,18 +23,18 @@ class App extends Component {
 
     render() {
         const LoginView = () => (
-            <Login/>
+            <Login />
         );
 
-        const BarraMenu = () => (
-            <BarraMenu/>
+        const Drawer = () => (
+            <BarraMenu />
         );
 
         return (
             <Router>
                 <div className="App">                     
                     <div>
-                        <Route component={!this.state.isLoggedIn ? LoginView : BarraMenu}/>
+                        <Route component={!this.state.isLoggedIn ? LoginView : Drawer}/>
                     </div>
                 </div>
             </Router>
