@@ -125,7 +125,7 @@ export function BarraMenu() {
             <Button
               type="submit"
               style={{ color: "white", backgroundColor: "#8a95cf" }}
-              onClick={handleClickCerrar()}
+              onClick={handleClickCerrar}
             >Cerrar sesión</Button>
           </div>
         </Toolbar>

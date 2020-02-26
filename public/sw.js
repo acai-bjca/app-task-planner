@@ -2,17 +2,10 @@ importScripts('/cache-polyfill.js');
 
 self.addEventListener('install', function (e) {
     e.waitUntil(
-        caches.open('app-task-planner').then(function (cache) {
+        caches.open('App').then(function (cache) {
             return cache.addAll([
                 '/',
-                '/index.html',
-                '/index.html?homescreen=1',
-                '/?homescreen=1',
-                '/index.js',
-                '/favicon.ico',
-                '/manifest.json',
-                '/App.js',
-                '/App.css'
+                '/index.html'
             ]);
         })
     );
