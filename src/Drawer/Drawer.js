@@ -131,8 +131,8 @@ export function BarraMenu() {
           <Avatar alt="Remy Sharp" src={ImgJerry} size="100"/><br />
           <div>
             <br />
-            <label paragraph>Jerry Perez</label>
-            <label paragraph>jerryperez@gmail.com</label>
+            <label>Jerry Perez</label>
+            <label>jerryperez@gmail.com</label>
             <Button>
               <ListItemIcon><Edit /></ListItemIcon>
             </Button>
