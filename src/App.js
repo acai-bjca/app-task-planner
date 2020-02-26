@@ -33,7 +33,7 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <div>
-                        <Route component={!this.state.isLoggedIn ? LoginView : Drawer} />
+                        <Route path="/" component={!this.state.isLoggedIn ? LoginView : Drawer} />
                     </div>
                 </div>
             </Router>

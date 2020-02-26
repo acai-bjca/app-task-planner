@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -91,6 +91,7 @@ export function BarraMenu() {
   const handleClickCerrar = () =>{
     localStorage.setItem('remember', false);
     console.log("Cerrando sesion " + localStorage.getItem('remember'));
+    window.location.href = "/";
   }
 
   const handleDrawerClose = () => {
