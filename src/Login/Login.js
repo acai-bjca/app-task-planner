@@ -10,7 +10,7 @@ export class Login extends React.Component {
         this.state = { stateEmail: '', statePassword: '', remember: false };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        localStorage.setItem('email', 'amalia@gmail.com');
+        localStorage.setItem('email', 'amalia');
         localStorage.setItem('password', 'amalia');
         localStorage.setItem('remember', false);
     }
