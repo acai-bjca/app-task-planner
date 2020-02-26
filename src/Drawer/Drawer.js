@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Avatar, AppBar, Toolbar, List, Typography, Divider, Button } from '@material-ui/core';
@@ -73,7 +73,6 @@ const useStyles = makeStyles(theme => ({
 
 export function BarraMenu() {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [taskC, setTask] = useState({
     description: "Implements Login View",
@@ -88,6 +87,11 @@ export function BarraMenu() {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  const handleClickCerrar = () =>{
+    localStorage.setItem('remember', false);
+    console.log("Cerrando sesion " + localStorage.getItem('remember'));
+  }
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -112,9 +116,17 @@ export function BarraMenu() {
           >
             <Menu />
           </IconButton>
+
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Task Planner
           </Typography>
+          <div style={{ textAlign: "right", width: "100%" }}>
+            <Button
+              type="submit"
+              style={{ color: "white", backgroundColor: "#8a95cf" }}
+              onClick={handleClickCerrar()}
+            >Cerrar sesión</Button>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -128,7 +140,7 @@ export function BarraMenu() {
       >
         <div className={classes.drawerHeader}>
           {/*<Avatar alt="Remy Sharp" src="../imagenes/jerry.png" />*/}
-          <Avatar alt="Remy Sharp" src={ImgJerry} size="100"/><br />
+          <Avatar alt="Remy Sharp" src={ImgJerry} size="100" /><br />
           <div>
             <br />
             <label>Jerry Perez</label>

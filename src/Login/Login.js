@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from "react-bootstrap";
 import imgUser from "../imagenes/user.png";
-import { makeStyles } from '@material-ui/core/styles';
-import imgFondo from "../imagenes/user.png";
-import { Paper, Input, InputLabel, FormControl, FormLabel, CssBaseline  } from '@material-ui/core';
+import { Paper, Input, InputLabel, FormControl, CssBaseline  } from '@material-ui/core';
 import "./Login.css";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 export class Login extends React.Component {
     constructor(props) {
@@ -59,17 +56,12 @@ export class Login extends React.Component {
                                         autoComplete="current-password"
                                         onChange={this.handleChange}/>
                                 </FormControl >
-                                <Button 
-                                className='ButtonI' 
+                                <Button                                
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                onClick = {this.handleClick}  >                                
-                                
-                               
-                                Sign in
-                            
-
+                                onClick = {this.handleClick}  >
+                                Sign Input
                                 </Button><br />
                                 <a href="url" className="Campo">Create Account</a>
                                 {/*<Router>

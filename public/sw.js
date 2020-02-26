@@ -9,6 +9,7 @@ self.addEventListener('install', function (e) {
                 '/index.js',
                 '/index.html?homescreen=1',
                 '/?homescreen=1',
+                '/favicon.ico',
                 '/manifest.json',
                 '/App.js',
                 '/App.css'
