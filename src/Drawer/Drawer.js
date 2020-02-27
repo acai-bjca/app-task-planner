@@ -85,10 +85,17 @@ export function BarraMenu(props) {
     status: "Ready",
     dueDate: "12-05-2013"
   });
-  localStorage.setItem('tasks',{});
 
-  const lista = localStorage.getItem('tasks');
-  const [taskList, setTaskList] = {localStorage.getItem('tasks')};
+   //localStorage.clear("tasks");
+  
+  const listItems = localStorage.getItem("tasks") === null ? null : localStorage.getItem("tasks").map((task1) =>
+  <TaskCard task={task1} /> 
+  );
+
+ 
+  console.log("INICIO: "+JSON.stringify(localStorage.getItem("tasks")));
+  //const lista = localStorage.getItem('tasks');
+  //const [taskList, setTaskList] = {localStorage.getItem('tasks')};
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -100,11 +107,15 @@ export function BarraMenu(props) {
     window.location.href = "/";
   }
 
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
+  const handleClickAdd = () => {
+    console.log("Cerrando sesion " + localStorage.getItem('remember'));
+    window.location.href = "/newTask";
+  };
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -177,13 +188,11 @@ export function BarraMenu(props) {
       >
         <div className={classes.drawerHeader} />
         <div style={{ textAlign: "right", width: "100%" }}>
-          taskList.map((taski, i) => {
-            <TaskCard key={this.i} task={this.taski} />
-          }          
+          {}
           <Fab
             color="primary"
             aria-label="add"
-            onClick={this.handleClickAdd}
+            onClick={handleClickAdd}
           >
             <AddIcon />
           </Fab>

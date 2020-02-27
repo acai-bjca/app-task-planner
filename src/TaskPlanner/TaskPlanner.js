@@ -78,11 +78,20 @@ export class TaskPlanner extends React.Component {
         };
     }
 
-    handleClickAdd = () => {
-        localStorage.setItem('remember', false);
-        console.log("Cerrando sesion " + localStorage.getItem('remember'));
-        window.location.href = "/newTask";
+    handleClickAdd(e) {
+        const tasks = localStorage.getItem('tasks');
+        console.log("Task Planner: 1 "+JSON.stringify(localStorage.getItem('tasks')));
+        if(tasks === null){
+            console.log("new Task Planner: 1 "+JSON.stringify(localStorage.getItem('tasks')));
+            localStorage.setItem('tasks', [this.state.task]);
+        }else{
+            console.log("2222222222222");
+            //localStorage.setItem('tasks', tasks.push(this.state.task));
+        }        
+        console.log("Task Planner: 2"+JSON.stringify(localStorage.getItem('tasks')));
+
     }
+
     render() {
         return (
             <div className={this.useStyles.root}>

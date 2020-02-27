@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Login } from "./Login/Login";
-import { TaskPlanner } from "./TaskPlanner/TaskPlanner";
+import { BarraMenu } from "./Drawer/Drawer";
 import { NewTask } from "./Task/NewTask";
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
@@ -11,7 +11,6 @@ class App extends Component {
         //this.state = {isLoggedIn: false}
         //console.log('LocalStorage remember '+ JSON.parse(localStorage.getItem('remember')));
         this.state = { isLoggedIn: JSON.parse(localStorage.getItem('remember')) };
-
         const isLogged = JSON.parse(localStorage.getItem('remember'));
         this.state = { isLoggedIn: isLogged }
     }
@@ -26,8 +25,8 @@ class App extends Component {
             <Login />
         );
 
-        const Tasks = () => (
-            <TaskPlanner />
+        const TaskPlanner = () => (
+            <BarraMenu />
         );
 
         const Task = () => (
@@ -38,8 +37,8 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <div>
-                        <Route exact  path="/" component={!this.state.isLoggedIn ? LoginView : Tasks} />
-                        <Route exact  path="/taskPlanner" component={Tasks} />
+                        <Route exact  path="/" component={!this.state.isLoggedIn ? LoginView : TaskPlanner} />
+                        <Route exact  path="/taskPlanner" component={TaskPlanner} />
                         <Route exact  path="/newTask" component={Task} />
                     </div>
                 </div>
