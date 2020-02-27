@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from "react-bootstrap";
+import {Redirect} from "react-router-dom";
 import imgUser from "../imagenes/user.png";
-import { Paper, Input, InputLabel, FormControl, CssBaseline  } from '@material-ui/core';
+import { Button, Paper, Input, InputLabel, FormControl, CssBaseline } from '@material-ui/core';
 import "./Login.css";
 
 export class Login extends React.Component {
@@ -15,11 +15,11 @@ export class Login extends React.Component {
         localStorage.setItem('remember', false);
     }
 
-    handleChange(e){        
-        if(e.target.id === 'email'){
-            this.setState({stateEmail: e.target.value});            
-        }else if(e.target.id === 'pasw'){
-            this.setState({statePassword: e.target.value});            
+    handleChange(e) {
+        if (e.target.id === 'email') {
+            this.setState({ stateEmail: e.target.value });
+        } else if (e.target.id === 'pasw') {
+            this.setState({ statePassword: e.target.value });
         }
     }
 
@@ -32,13 +32,14 @@ export class Login extends React.Component {
     }
 
     render() {
+        if (this.state.remember) return <Redirect to="/taskPlanner"/>;
         return (
             <React.Fragment>
                 <CssBaseline />
                 <main className="layout">
                     <div className="Login centered">
-                        <Paper elevation={3} className='Paper'>
-                            <form className="form">
+                        <form className="form">
+                            <Paper elevation={3} className='Paper'>
                                 <label id="titulo" >Task Planner.</label><br />
                                 <img id="imgUser" src={imgUser} alt="" />
                                 <FormControl margin="normal" required fullWidth>
@@ -47,29 +48,26 @@ export class Login extends React.Component {
                                         id="email"
                                         autoComplete="email"
                                         autoFocus
-                                        onChange={this.handleChange}/>
+                                        onChange={this.handleChange} />
                                 </FormControl >
                                 <FormControl margin="normal" required fullWidth>
                                     <InputLabel htmlFor="pasw">Password</InputLabel>
                                     <Input
                                         id="pasw"
                                         autoComplete="current-password"
-                                        onChange={this.handleChange}/>
-                                </FormControl >
-                                <Button                                
-                                type="submit"                                
-                                variant="contained"
-                                onClick = {this.handleClick}  >
-                                Sign Input
-                                </Button><br />
-                                <a href="url" className="Campo">Create Account</a>
-                                {/*<Router>
-                                 <div>
-                                    <Route component={localStorage.getItem('remember') ? <BarraMenu /> : <Login />} />
-                                </div>
-                                    </Router>*/}
-                            </form>
-                        </Paper>
+                                        onChange={this.handleChange} />
+                                </FormControl ><br/><br/>
+                                <Button
+                                    type="submit"
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={this.handleClick}  >
+                                    Sign Input
+                                </Button><br/><br/>
+                                <a href="url" className="Campo">Create Account</a>                                
+                            </Paper>
+                        </form>
+
                     </div>
                 </main>
             </React.Fragment>

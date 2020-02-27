@@ -1,36 +1,28 @@
-@media all { /*all: cuaqluier dispositivo*/
-    .Login {
+@media screen { /*all: cuaqluier dispositivo*/
+    .Fondo {
         background-image: url("../imagenes/fondo.jpg");
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        background-size: cover;
+        background-size: cover;        
     }
 
-    .centered {
+    .centered {        
         height: 100vh; /* Magic here */
         display: flex;
         justify-content: center;
         align-items: center;
-      }
-
-    .Login form {
-      text-align: center !important;
-      width: 300px;
     }
 
     .Campo{
         margin-top: 40px ;
         font-size: 18px;
-
     }
     
     #titulo{
         font-size: 30px;
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        margin-bottom: 10px;
         color: rgb(20, 62, 177);
-        font-style: normal;
+        font-family: Comic Sans MS;
     }
 
     .InputText{
@@ -42,17 +34,16 @@
         width: 300px;
     }
     
+    .form{  
+        width: 250px;
+    }
+
     .Paper{        
         border-radius: 15px !important;
         width: 20%;
         padding: 40px ;
         width: 100%;
-    }
-    
-
-    #imgUser{
-        width: 30%;
-    }
+    }    
 
     .ButtonI{
         height: 40px;

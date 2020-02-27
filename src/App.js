@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Login } from "./Login/Login";
-import { BarraMenu } from "./Drawer/Drawer";
+import { TaskPlanner } from "./TaskPlanner/TaskPlanner";
+import { NewTask } from "./Task/NewTask";
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 class App extends Component {
@@ -25,15 +26,21 @@ class App extends Component {
             <Login />
         );
 
-        const Drawer = () => (
-            <BarraMenu />
+        const Tasks = () => (
+            <TaskPlanner />
+        );
+
+        const Task = () => (
+            <NewTask />
         );
 
         return (
             <Router>
                 <div className="App">
                     <div>
-                        <Route path="/" component={!this.state.isLoggedIn ? LoginView : Drawer} />
+                        <Route exact  path="/" component={!this.state.isLoggedIn ? LoginView : Tasks} />
+                        <Route exact  path="/taskPlanner" component={Tasks} />
+                        <Route exact  path="/newTask" component={Task} />
                     </div>
                 </div>
             </Router>

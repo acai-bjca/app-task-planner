@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
+//Core
 import { Avatar, AppBar, Toolbar, List, Typography, Divider, Button } from '@material-ui/core';
-import { IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { ChevronRight } from '@material-ui/icons';
-import { Home, Menu, Edit } from '@material-ui/icons';
+import { IconButton, ListItem, ListItemIcon, ListItemText, Fab } from '@material-ui/core';
+//Icons
+import { ChevronRight, Add as AddIcon, Home, Menu, Edit } from '@material-ui/icons';
+//Archivos
 import ImgJerry from '../imagenes/jerry.png';
-import TaskCard from '../Login/Card';
+import {TaskCard} from "../Task/Card";
 
 
 const drawerWidth = 320;
@@ -88,11 +90,12 @@ export function BarraMenu() {
     setOpen(true);
   };
 
-  const handleClickCerrar = () =>{
+  const handleClickCerrar = () => {
     localStorage.setItem('remember', false);
     console.log("Cerrando sesion " + localStorage.getItem('remember'));
     window.location.href = "/";
   }
+
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -169,10 +172,16 @@ export function BarraMenu() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <TaskCard task={taskC} />
-        <Typography paragraph>
-
-        </Typography>
+        <div style={{ textAlign: "right", width: "100%" }}>
+          <TaskCard task={this.task1.task} />
+          <Fab
+            color="primary"
+            aria-label="add"
+            onClick={this.handleClickAdd}
+          >
+            <AddIcon />
+          </Fab>
+        </div>
       </main>
     </div>
   );
