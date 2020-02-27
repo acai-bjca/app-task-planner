@@ -9,6 +9,7 @@ import { Done as DoneIcon } from '@material-ui/icons';
 //Archivos
 import imgUser from "../imagenes/user.png";
 import "./NewTask.css";
+import { TaskPlanner } from '../TaskPlanner/TaskPlanner';
 
 export class NewTask extends React.Component {
     constructor(props) {
@@ -47,9 +48,10 @@ export class NewTask extends React.Component {
     }
 
     handleClickAdd(e) {
-        const tasks = localStorage.getItem('tasks');
-        localStorage.setItem('tasks', tasks.push(this.state.task));
-        console.log(localStorage.getItem('tasks'));
+        const tasksActual = localStorage.getItem('tasks');
+        const tasksNew = tasksActual.push(this.state.task);
+        localStorage.setItem('tasks', tasksNew);
+        return <TaskPlanner tasks={tasksNew}/>;
 
     }
 

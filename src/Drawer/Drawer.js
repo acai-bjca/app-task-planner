@@ -10,7 +10,7 @@ import { IconButton, ListItem, ListItemIcon, ListItemText, Fab } from '@material
 import { ChevronRight, Add as AddIcon, Home, Menu, Edit } from '@material-ui/icons';
 //Archivos
 import ImgJerry from '../imagenes/jerry.png';
-import {TaskCard} from "../Task/Card";
+import TaskCard from "../Task/Card";
 
 
 const drawerWidth = 320;
@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export function BarraMenu() {
+export function BarraMenu(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [taskC, setTask] = useState({
@@ -85,6 +85,10 @@ export function BarraMenu() {
     status: "Ready",
     dueDate: "12-05-2013"
   });
+  localStorage.setItem('tasks',{});
+
+  const lista = localStorage.getItem('tasks');
+  const [taskList, setTaskList] = {localStorage.getItem('tasks')};
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -173,7 +177,9 @@ export function BarraMenu() {
       >
         <div className={classes.drawerHeader} />
         <div style={{ textAlign: "right", width: "100%" }}>
-          <TaskCard task={this.task1.task} />
+          taskList.map((taski, i) => {
+            <TaskCard key={this.i} task={this.taski} />
+          }          
           <Fab
             color="primary"
             aria-label="add"
