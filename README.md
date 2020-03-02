@@ -7,3 +7,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Referencias:
 Par la configuración de firbase se utilizó el siguiente video:
 https://www.youtube.com/watch?v=QNMVURtx86c
+
