@@ -36,8 +36,8 @@ class App extends Component {
                 <div className="App">
                     <div>
                         <Route exact  path="/" component={!this.state.isLoggedIn ? LoginView : TaskPlannerView} />
-                        <Route exact  path="/taskPlanner" component={TaskPlannerView} />
-                        <Route exact  path="/newTask" component={Task} />
+                        <Route exact  path="/taskPlanner" component={!this.state.isLoggedIn ? TaskPlannerView: LoginView} />
+                        <Route exact  path="/newTask" component={!this.state.isLoggedIn ? Task: LoginView} />
                     </div>
                 </div>
             </Router>

@@ -84,20 +84,18 @@ export function TaskPlanner(props) {
     status: "Ready",
     dueDate: "12-05-2013"
   });
-  if (localStorage.getItem('tasks') === null) localStorage.setItem('tasks',  []);
-  
-  const listTasks = JSON.parse(localStorage.getItem('tasks'));
-  const cardTasks = listTasks.map((task1, i) => <div key={i}><TaskCard task={task1} /><br/></div>);
+
+  const cardTasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')).map((task1, i) => <div key={i}><TaskCard task={task1} /><br/></div>) : localStorage.setItem('tasks', JSON.stringify([]));
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
-  const handleClickCerrar = () => {
+  const handleClickCerrar = (e) => {
+    e.preventDefault();
     localStorage.setItem('remember', false);
     console.log("Cerrando sesion " + localStorage.getItem('remember'));
-    window.location.href = "/";
-  }
+    }
 
   const handleDrawerClose = () => {
     setOpen(false);
