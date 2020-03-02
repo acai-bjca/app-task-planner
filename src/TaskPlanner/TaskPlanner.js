@@ -1,112 +1,197 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
-//Styles
-import { makeStyles } from '@material-ui/core/styles';
 //Core
-import { CssBaseline, Fab } from '@material-ui/core';
+import { Avatar, AppBar, Toolbar, List, Typography, Divider, Button } from '@material-ui/core';
+import { IconButton, ListItem, ListItemIcon, ListItemText, Fab } from '@material-ui/core';
+import { CssBaseline, Drawer } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 //Icons
-import { Add as AddIcon } from '@material-ui/icons';
+import { ChevronRight, Add as AddIcon, Home, Menu, Edit } from '@material-ui/icons';
 //Archivos
-import { BarraMenu } from "../Drawer/Drawer";
-import TaskCard from '../Task/Card';
+import ImgJerry from '../imagenes/jerry.png';
+import TaskCard from "../Task/Card";
 
 
+const drawerWidth = 320;
 
-export class TaskPlanner extends React.Component {
-    drawerWidth = 320;
-    useStyles = makeStyles(theme => ({
-        root: {
-            display: 'flex',
-        },
-        drawer: {
-            width: this.drawerWidth,
-            flexShrink: 0,
-            marginTop: 0,
-        },
-        drawerPaper: {
-            fontSize: 15,
-            width: this.drawerWidth,
-        },
-        drawerHeader: {
-            display: 'flex',
-            alignItems: 'center',
-            padding: theme.spacing(0, 1),
-            ...theme.mixins.toolbar,
-            justifyContent: 'flex-end',
-        },
-        content: {
-            flexGrow: 1,
-            padding: theme.spacing(3),
-            transition: theme.transitions.create('margin', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen,
-            }),
-            marginLeft: -this.drawerWidth,
-        },
-        contentShift: {
-            transition: theme.transitions.create('margin', {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            marginLeft: 0,
-        },
-    }));
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  },
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    marginTop: 0,
+  },
+  drawerPaper: {
+    fontSize: 15,
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+}));
 
-    task1 = {
-        task: {
-            description: "Implements Login View",
-            responsible: {
-                name: "Santiago Carrillo",
-                email: "sancarbar@gmail.com"
-            },
-            status: "Ready",
-            dueDate: "12-05-2013"
-        }
-    }
-    constructor(props) {
-        super(props);
-        this.state = {
-            task: {
-                description: "",
-                responsible: {
-                    name: "",
-                    email: "sancarbar@gmail.com"
-                },
-                status: "",
-                dueDate: ""
-            }
-        };
-    }
+export function TaskPlanner(props) {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [taskC, setTask] = useState({
+    description: "Implements Login View",
+    responsible: {
+      name: "Santiago Carrillo",
+      email: "sancarbar@gmail.com"
+    },
+    status: "Ready",
+    dueDate: "12-05-2013"
+  });
+  if (localStorage.getItem('tasks') === null) localStorage.setItem('tasks',  []);
+  
+  const listTasks = JSON.parse(localStorage.getItem('tasks'));
+  const cardTasks = listTasks.map((task1, i) => <div key={i}><TaskCard task={task1} /><br/></div>);
 
-    handleClickAdd(e) {
-        const tasks = localStorage.getItem('tasks');
-        console.log("Task Planner: 1 "+JSON.stringify(localStorage.getItem('tasks')));
-        if(tasks === null){
-            console.log("new Task Planner: 1 "+JSON.stringify(localStorage.getItem('tasks')));
-            localStorage.setItem('tasks', [this.state.task]);
-        }else{
-            console.log("2222222222222");
-            //localStorage.setItem('tasks', tasks.push(this.state.task));
-        }        
-        console.log("Task Planner: 2"+JSON.stringify(localStorage.getItem('tasks')));
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-    }
+  const handleClickCerrar = () => {
+    localStorage.setItem('remember', false);
+    console.log("Cerrando sesion " + localStorage.getItem('remember'));
+    window.location.href = "/";
+  }
 
-    render() {
-        return (
-            <div className={this.useStyles.root}>
-                <BarraMenu />
-                <div style={{ textAlign: "right", width: "100%" }}>
-                    <TaskCard task={this.task1.task} />
-                    <Fab
-                        color="primary"
-                        aria-label="add"
-                        onClick={this.handleClickAdd}
-                    >
-                        <AddIcon />
-                    </Fab>
-                </div>
-            </div>
-        );
-    }
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickAdd = () => {
+    console.log("Cerrando sesion " + localStorage.getItem('remember'));
+    window.location.href = "/newTask";
+  };
+
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
+          >
+            <Menu />
+          </IconButton>
+
+          <Typography variant="h6" noWrap>
+            Task Planner
+          </Typography>
+          <div style={{ textAlign: "right", width: "100%" }}>
+            <Button
+              type="submit"
+              style={{ color: "white", backgroundColor: "#8a95cf" }}
+              onClick={handleClickCerrar}
+            >Cerrar sesión</Button>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          {/*<Avatar alt="Remy Sharp" src="../imagenes/jerry.png" />*/}
+          <Avatar alt="Remy Sharp" src={ImgJerry} size="100" /><br />
+          <div>
+            <br />
+            <label>Jerry Perez</label>
+            <label>jerryperez@gmail.com</label>
+            <Button>
+              <ListItemIcon><Edit /></ListItemIcon>
+            </Button>
+          </div>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronRight />
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          <ListItem button key="Inicio">
+            <ListItemIcon><Home /></ListItemIcon>
+            <ListItemText primary="Inicio" />
+          </ListItem>
+        </List>
+        <Divider />
+      </Drawer>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        <div style={{ textAlign: "right", width: "100%" }}>
+          {cardTasks}
+          <Fab
+            color="primary"
+            aria-label="add"
+            onClick={handleClickAdd}
+          >
+            <AddIcon />
+          </Fab>
+        </div>
+      </main>
+    </div>
+  );
 }
+
+

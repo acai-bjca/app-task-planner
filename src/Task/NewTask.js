@@ -15,46 +15,40 @@ export class NewTask extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            task: {
-                description: "",
-                responsible: {
-                    name: "",
-                    email: "sancarbar@gmail.com"
-                },
-                status: "",
-                dueDate: ""
-            }
+            description: "",
+            responsible: {
+                name: "",
+                email: "sancarbar@gmail.com"
+            },
+            status: "",
+            dueDate: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClickAdd = this.handleClickAdd.bind(this);
+        this.handleChangeSelect = this.handleChangeSelect.bind(this);
     }
 
     handleChange(e) {
+        console.log(e.target.id)
         if (e.target.id === 'desc') {
-            this.setState({ description: e.target.value });
+            this.setState({description: e.target.value });
         } else if (e.target.id === 'resp') {
-            this.setState({ name: e.target.value });
-        } else if (e.target.id === 'status') {
-            this.setState({ status: e.target.value });
-        } else if (e.target.id === 'dueDate') {
-            this.setState({ dueDate: e.target.value });
+            this.setState({responsible: { name: e.target.value}});
+        }else if (e.target.id === 'dueDate') {
+            this.setState({ dueDate: e.target.value});
         }
     }
 
+    handleChangeSelect(e) {
+        this.setState({ status: e.target.value});        
+    }
+
     handleClickAdd(e) {
-        console.log("Lista de tareas : "+localStorage.getItem('tasks'));
-        if (localStorage.getItem('tasks') === null) {
-            console.log("New task 1: "+JSON.stringify(this.state.task));
-            const t = [this.state.task];
-            localStorage.setItem('tasks', t);
-        } else {
-            const a = JSON.stringify(localStorage.getItem('tasks'));
-            console.log("New task 2: "+ JSON.stringify(a));
-            const actualT = localStorage.getItem('tasks');
-            const newT = actualT.push(this.state.task);            
-            localStorage.setItem('tasks', newT);
-            console.log("New task 3: "+localStorage.getItem('newT'));
-        }
+        console.log("tasks: " + localStorage.getItem('tasks'));
+        var actualT =  JSON.parse(localStorage.getItem('tasks'));
+        actualT.push(this.state);
+        localStorage.setItem('tasks', JSON.stringify(actualT));
+        console.log("update tasks: " + localStorage.getItem('tasks'));
         window.location.href = "/taskPlanner";
 
     }
@@ -72,6 +66,7 @@ export class NewTask extends React.Component {
                                 id="desc"
                                 autoComplete="desc"
                                 autoFocus
+                                value={this.state.description}
                                 onChange={this.handleChange}
                             />
                         </FormControl >
@@ -81,24 +76,20 @@ export class NewTask extends React.Component {
                             <Input
                                 id="resp"
                                 autoComplete="resp"
-                                autoFocus
+                                value={this.state.responsible.name}
                                 onChange={this.handleChange} />
                         </FormControl >
                         <br /><br />
                         <FormControl fullWidth>
-                            <InputLabel htmlFor="statusHtml">Status</InputLabel>
-                            <Select
-                                native
-                                value={this.state.dueDate}
-                                onChange={this.handleChange}
-                                inputProps={{
-                                    name: 'status',
-                                    id: 'statusHtml',
-                                }}
+                            <InputLabel htmlFor="status">Status</InputLabel>
+                            <Select                                
+                                id="status"
+                                value={this.state.status}                                
+                                onChange={this.handleChangeSelect}
                             >
-                                <option value={"Ready"}>Ready</option>
-                                <option value={"In progress"}>In progress</option>
-                                <option value={"Done"}>Done</option>
+                                <MenuItem id="" value={"Ready"}>Ready</MenuItem >
+                                <MenuItem  value={"In progress"}>In progress</MenuItem >
+                                <MenuItem  value={"Done"}>Done</MenuItem >
                             </Select>
                         </FormControl>
                         <br /><br />
@@ -107,6 +98,7 @@ export class NewTask extends React.Component {
                             <TextField style={{ minWidth: "100%" }}
                                 id="dueDate"
                                 type="date"
+                                value={this.state.dueDate}
                                 onChange={this.handleChange}
                             />
                         </FormControl>
