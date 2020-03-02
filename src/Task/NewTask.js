@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from "react-router-dom";
 //Bootstrap
 //Core
 import { MenuItem, Input, InputLabel, FormControl, Select, TextField, Fab } from '@material-ui/core';
@@ -51,6 +52,7 @@ export class NewTask extends React.Component {
     }
 
     render() {
+        if (localStorage.getItem('remember') == false) return <Redirect to="/"/>;
         return (
             <div className="Fondo centered">
                 <form className="form">

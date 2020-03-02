@@ -95,6 +95,7 @@ export function TaskPlanner(props) {
   const handleClickCerrar = (e) => {
     e.preventDefault();
     localStorage.setItem('remember', false);
+    window.location.href = "/";
     console.log("Cerrando sesion " + localStorage.getItem('remember'));
     }
 
@@ -107,7 +108,7 @@ export function TaskPlanner(props) {
     window.location.href = "/newTask";
   };
   
-  if (localStorage.getItem("remember")) return <Redirect to="/"/>;
+  if (localStorage.getItem('remember') == false) return <Redirect to="/"/>;
   return (
     <div className={classes.root}>
       <CssBaseline />
