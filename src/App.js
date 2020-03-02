@@ -8,8 +8,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 class App extends Component {
     constructor(props) {
         super(props);
-        //this.state = {isLoggedIn: false}
-        //console.log('LocalStorage remember '+ JSON.parse(localStorage.getItem('remember')));
         this.state = { isLoggedIn: JSON.parse(localStorage.getItem('remember')) };
         const isLogged = JSON.parse(localStorage.getItem('remember'));
         this.state = { isLoggedIn: isLogged }        

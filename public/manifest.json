@@ -1,6 +1,9 @@
 {
-  "short_name": "React App",
+  "short_name": "app-task-planner",
   "name": "Create React App Sample",
+  "display": "standalone",
+  "Scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "favicon.ico",
