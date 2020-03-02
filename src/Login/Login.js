@@ -34,7 +34,7 @@ export class Login extends React.Component {
     }
 
     render() {
-        //if (this.state.remember) return <Redirect to="/taskPlanner"/>;
+        if (this.state.remember) return <Redirect to="/taskPlanner"/>;
         return (
             <React.Fragment>
                 <CssBaseline />
