@@ -3,6 +3,7 @@ import './App.css';
 import { Login } from "./Login/Login";
 import { TaskPlanner } from "./TaskPlanner/TaskPlanner";
 import { NewTask } from "./Task/NewTask";
+import { Registro } from "./Registro/Registro";
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
         super(props);
         this.state = { isLoggedIn: JSON.parse(localStorage.getItem('remember')) };
         const isLogged = JSON.parse(localStorage.getItem('remember'));
+        console.log(isLogged);
         this.state = { isLoggedIn: isLogged }        
     }
 
@@ -21,6 +23,10 @@ class App extends Component {
     render() {
         const LoginView = () => (
             <Login />
+        );
+
+        const RegistroView = () => (
+            <Registro />
         );
 
         const TaskPlannerView = () => (
@@ -36,8 +42,9 @@ class App extends Component {
                 <div className="App">
                     <div>
                         <Route exact  path="/" component={!this.state.isLoggedIn ? LoginView : TaskPlannerView} />
-                        <Route exact  path="/taskPlanner" component={!this.state.isLoggedIn ? TaskPlannerView: LoginView} />
-                        <Route exact  path="/newTask" component={!this.state.isLoggedIn ? Task: LoginView} />
+                        <Route exact  path="/taskPlanner" component={this.state.isLoggedIn ? TaskPlannerView: LoginView} />
+                        <Route exact  path="/newTask" component={this.state.isLoggedIn ? Task: LoginView} />
+                        <Route exact  path="/registro" component={RegistroView} />
                     </div>
                 </div>
             </Router>

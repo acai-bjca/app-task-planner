@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import {Redirect} from "react-router-dom";
 //Core
 import { Avatar, AppBar, Toolbar, List, Typography, Divider, Button } from '@material-ui/core';
 import { IconButton, ListItem, ListItemIcon, ListItemText, Fab } from '@material-ui/core';
@@ -105,7 +106,8 @@ export function TaskPlanner(props) {
     console.log("Cerrando sesion " + localStorage.getItem('remember'));
     window.location.href = "/newTask";
   };
-
+  
+  if (localStorage.getItem("remember")) return <Redirect to="/"/>;
   return (
     <div className={classes.root}>
       <CssBaseline />

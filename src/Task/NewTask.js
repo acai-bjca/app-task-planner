@@ -1,19 +1,16 @@
 import React from 'react';
 //Bootstrap
-import { FormGroup, Dropdown, InputGroup, DropdownButton } from "react-bootstrap";
 //Core
 import { MenuItem, Input, InputLabel, FormControl, Select, TextField, Fab } from '@material-ui/core';
-import { Paper } from '@material-ui/core';
+import { Paper} from '@material-ui/core';
 //Icons
 import { Done as DoneIcon } from '@material-ui/icons';
 //Archivos
-import imgUser from "../imagenes/user.png";
 import "./NewTask.css";
-import { TaskPlanner } from '../TaskPlanner/TaskPlanner';
 
 export class NewTask extends React.Component {
     constructor(props) {
-        super(props);
+        super(props);        
         this.state = {
             description: "",
             responsible: {

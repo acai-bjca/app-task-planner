@@ -9,10 +9,7 @@ export class Login extends React.Component {
         super(props);
         this.state = { stateEmail: '', statePassword: '', remember: false };
         this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        localStorage.setItem('email', 'amalia@gmail.com');
-        localStorage.setItem('password', 'amalia');
-        localStorage.setItem('remember', false);
+        this.handleClick = this.handleClick.bind(this);             
     }
 
     handleChange(e) {
@@ -26,13 +23,18 @@ export class Login extends React.Component {
     handleClick(e) {
         if (!this.state.stateEmail || !this.state.statePassword) {
             return;
-        } if (this.state.stateEmail === localStorage.getItem('email') && this.state.statePassword === localStorage.getItem('password')) {
-            localStorage.setItem('remember', true);
+        }
+        const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+        if(!(user === null)){
+            if(this.state.stateEmail === user.email && this.state.statePassword === user.passw){
+                this.setState({ remember: true });
+                localStorage.setItem('remember', true);
+            }
         }
     }
 
     render() {
-        if (this.state.remember) return <Redirect to="/taskPlanner"/>;
+        //if (this.state.remember) return <Redirect to="/taskPlanner"/>;
         return (
             <React.Fragment>
                 <CssBaseline />
@@ -64,7 +66,7 @@ export class Login extends React.Component {
                                     onClick={this.handleClick}  >
                                     Sign Input
                                 </Button><br/><br/>
-                                <a href="url" className="Campo">Create Account</a>                                
+                                <a href="/Registro" className="Campo">Create Account</a>                                
                             </Paper>
                         </form>
 
