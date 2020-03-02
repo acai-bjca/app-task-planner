@@ -52,7 +52,7 @@ export class NewTask extends React.Component {
     }
 
     render() {
-        if (localStorage.getItem('remember') == false) return <Redirect to="/"/>;
+        if (localStorage.getItem('remember') === false) return <Redirect to="/"/>;
         return (
             <div className="Fondo centered">
                 <form className="form">

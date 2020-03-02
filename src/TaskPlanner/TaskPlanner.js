@@ -108,7 +108,7 @@ export function TaskPlanner(props) {
     window.location.href = "/newTask";
   };
   
-  if (localStorage.getItem('remember') == false) return <Redirect to="/"/>;
+  if (localStorage.getItem('remember') === false) return <Redirect to="/"/>;
   return (
     <div className={classes.root}>
       <CssBaseline />

@@ -34,7 +34,7 @@ export class Login extends React.Component {
     }
 
     render() {
-    if (localStorage.getItem('remember') == true) return <Redirect to="/taskPlanner"/>;
+        if (localStorage.getItem('remember') === false) return <Redirect to="/"/>;
         return (
             <React.Fragment>
                 <CssBaseline />

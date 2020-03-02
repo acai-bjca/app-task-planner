@@ -49,7 +49,7 @@ export class Registro extends React.Component {
   }
 
   render() {
-    if (localStorage.getItem('remember') == false) return <Redirect to="/"/>;
+    if (localStorage.getItem('remember') === false) return <Redirect to="/"/>;
     return (
       <React.Fragment>
         <CssBaseline />
