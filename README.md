@@ -1,4 +1,5 @@
-Link Firebase: https://www.youtube.com/watch?v=QNMVURtx86c
+Link Firebase: hhttps://task-planner-app-f961f.web.app/
+
 Link Heroku: https://app-task-planner.herokuapp.com/
 [![Heroku](https://app-task-planner.herokuapp.com/)]
 
