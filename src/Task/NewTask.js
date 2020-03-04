@@ -3,11 +3,11 @@ import {Redirect} from "react-router-dom";
 //Bootstrap
 //Core
 import { MenuItem, Input, InputLabel, FormControl, Select, TextField, Fab } from '@material-ui/core';
-import { Paper} from '@material-ui/core';
+import { Paper, CssBaseline} from '@material-ui/core';
 //Icons
 import { Done as DoneIcon } from '@material-ui/icons';
 //Archivos
-import "./NewTask.css";
+import "../Login/Login.css";
 
 export class NewTask extends React.Component {
     constructor(props) {
@@ -54,7 +54,10 @@ export class NewTask extends React.Component {
     render() {
         if (localStorage.getItem('remember') === false) return <Redirect to="/"/>;
         return (
-            <div className="Fondo centered">
+            <React.Fragment>
+        <CssBaseline />
+        <main className="layout">
+            <div className="Login centered">
                 <form className="form">
                     <Paper elevation={3} className='Paper'>
                         <label id="titulo">New Task</label>
@@ -114,7 +117,8 @@ export class NewTask extends React.Component {
                     </Paper>
                 </form>
             </div>
-
+            </main>
+      </React.Fragment>
         );
     }
 }
