@@ -6,7 +6,6 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import "../Login/Login.css";
 import imgUser from "../imagenes/user.png";
 
-
 export class Registro extends React.Component {
   constructor(props) {
     super(props);

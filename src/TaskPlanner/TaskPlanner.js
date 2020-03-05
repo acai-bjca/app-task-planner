@@ -11,7 +11,7 @@ import { ChevronRight, Add as AddIcon, Home, Menu, Edit } from '@material-ui/ico
 //Archivos
 import ImgJerry from '../imagenes/jerry.png';
 import TaskCard from "../Task/Card";
-
+import { render } from '@testing-library/react';
 
 const drawerWidth = 320;
 
@@ -75,17 +75,7 @@ const useStyles = makeStyles(theme => ({
 
 export function TaskPlanner(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [taskC, setTask] = useState({
-    description: "Implements Login View",
-    responsible: {
-      name: "Santiago Carrillo",
-      email: "sancarbar@gmail.com"
-    },
-    status: "Ready",
-    dueDate: "12-05-2013"
-  });
-
+  const [open, setOpen] = React.useState(false); 
   const cardTasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')).map((task1, i) => <div key={i}><TaskCard task={task1} /><br/></div>) : localStorage.setItem('tasks', JSON.stringify([]));
 
   const handleDrawerOpen = () => {
@@ -95,8 +85,9 @@ export function TaskPlanner(props) {
   const handleClickCerrar = (e) => {
     e.preventDefault();
     localStorage.setItem('remember', false);
-    window.location.href = "/";
+    window.location.href = "/";    
     console.log("Cerrando sesion " + localStorage.getItem('remember'));
+    render();
     }
 
   const handleDrawerClose = () => {
