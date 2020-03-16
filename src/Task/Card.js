@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -13,15 +13,26 @@ const useStyles = makeStyles({
 
 export default function TaskCard(props) {
   const classes = useStyles();
-  
+  const [userName, setUserName] = useState();
+  const [userEmail, setUserEmail] = useState();
+
+  const componentDidMount = () => {
+    fetch("http://localhost:8080/users/" + props.task.userId)
+      .then(response => response.json())
+      .then(data => {
+        setUserName(data.name);
+        setUserEmail(data.email);
+      })
+  };
+
   //const taskC = this.props.taskC;
   console.log("Entro a tarea");
-  console.log("Tarea objeto: "+ JSON.stringify(props.task));
-  console.log("Descripcion objeto: "+ props.task.description);
+  console.log("Tarea objeto: " + JSON.stringify(props.task));
+  console.log("Descripcion objeto: " + props.task.description);
 
-  return (    
-    <Card className={classes.root}>
-      <CardActionArea>        
+  return (
+    <Card className={classes.root} onLoad={componentDidMount}>
+      <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {props.task.description}
@@ -30,11 +41,11 @@ export default function TaskCard(props) {
             {props.task.status} - {props.task.dueDate}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.task.responsible.name}<br/>
-            {props.task.responsible.email}
+            {userName}<br />
+            {userEmail}
           </Typography>
         </CardContent>
-      </CardActionArea>      
+      </CardActionArea>
     </Card>
   );
 }

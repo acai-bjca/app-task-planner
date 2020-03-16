@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 //Core
 import { Avatar, AppBar, Toolbar, List, Typography, Divider, Button } from '@material-ui/core';
 import { IconButton, ListItem, ListItemIcon, ListItemText, Fab } from '@material-ui/core';
@@ -11,7 +11,6 @@ import { ChevronRight, Add as AddIcon, Home, Menu, Edit } from '@material-ui/ico
 //Archivos
 import ImgJerry from '../imagenes/jerry.png';
 import TaskCard from "../Task/Card";
-import { render } from '@testing-library/react';
 
 const drawerWidth = 320;
 
@@ -75,20 +74,32 @@ const useStyles = makeStyles(theme => ({
 
 export function TaskPlanner(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false); 
-  const cardTasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')).map((task1, i) => <div key={i}><TaskCard task={task1} /><br/></div>) : localStorage.setItem('tasks', JSON.stringify([]));
+  const [open, setOpen] = React.useState(false);
+  //const cardTasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')).map((task1, i) => <div key={i}><TaskCard task={task1} /><br/></div>) : localStorage.setItem('tasks', JSON.stringify([]));
+  const [cardTasks, setTasks] = useState();
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
+  const componentDidMount = () => {
+    fetch("http://localhost:8080/tasks")
+      .then(response => response.json())
+      .then(data => {
+        console.log("data: " + JSON.stringify(data));
+        setTasks(data.map((task, i) =>
+          <div key={i}><TaskCard task={task} /><br /></div>)
+        );
+        console.log(cardTasks)
+      });
+  };
+
   const handleClickCerrar = (e) => {
     e.preventDefault();
     localStorage.setItem('remember', false);
-    window.location.href = "/";    
+    window.location.href = "/";
     console.log("Cerrando sesion " + localStorage.getItem('remember'));
-    render();
-    }
+  };
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -98,10 +109,10 @@ export function TaskPlanner(props) {
     console.log("Cerrando sesion " + localStorage.getItem('remember'));
     window.location.href = "/newTask";
   };
-  
-  if (localStorage.getItem('remember') === false) return <Redirect to="/"/>;
+
+  if (localStorage.getItem('remember') === false) return <Redirect to="/" />;
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onLoad={componentDidMount}>
       <CssBaseline />
       <AppBar
         position="fixed"
