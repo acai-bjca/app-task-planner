@@ -1,5 +1,5 @@
 const doCache = true;
-const CACHE_NAME = "app-task-planner";
+const CACHE_NAME = "app-task-planner-frontEnd";
 
 self.addEventListener("activate", event => {
     const cacheWhitelist = [CACHE_NAME];
