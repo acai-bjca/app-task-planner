@@ -8,30 +8,29 @@ import { Dialog, DialogActions, DialogContent, DialogContentText } from '@materi
 import "./Login.css";
 import imgUser from "../imagenes/user.png";
 
-
-
-
-
 export class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = { stateEmail: '', statePassword: '', remember: false, dialog: '', open: false };
         this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-    }
+        this.login = this.login.bind(this);    }
 
     login() {
-        const self1 = this;       
-        axios.post('http://localhost:8080/api/user/login', {
+        const self1 = this; 
+        if (!this.state.stateEmail || !this.state.statePassword) {
+            return;
+        }             
+        axios.post('http://localhost:8080/api/user/login', {            
             email: this.state.stateEmail, //username: 'xyz',
             password: this.state.statePassword //password: 'password'
         })
         .then(function (response) {
             console.log(response.data);
             localStorage.setItem("token", JSON.stringify(response.data));
-            //self1.validate();
+            localStorage.setItem('remember', true);
         })
-        .catch(function (error) {
+        .catch(function (error) {            
+            console.log("Usuario o contraseña incorrecta.");
             self1.handleOpen();
         });
     }
@@ -41,8 +40,7 @@ export class Login extends React.Component {
         if (e.target.id === 'email') {
             this.setState({ stateEmail: e.target.value });
         } else if (e.target.id === 'pasw') {
-            this.setState({ statePassword: e.target.value });
-        }
+            this.setState({ statePassword: e.target.value });        }
     }
 
     validate() {
@@ -67,7 +65,7 @@ export class Login extends React.Component {
     handleClose() {
         this.setState({ open: false });
     }
-
+    /*
     handleClick(e) {
         e.preventDefault();
         if (!this.state.stateEmail || !this.state.statePassword) {
@@ -75,13 +73,19 @@ export class Login extends React.Component {
         }
         const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
         if (!(user === null)) {
-            if (this.state.stateEmail === user.email && this.state.statePassword === user.passw) {
-                this.login();
+            if (this.state.stateEmail === user.email && this.state.statePassword === user.passw) {              
                 this.setState({ remember: true });
                 localStorage.setItem('remember', true);
+                console.log("yaveifico");
+                this.login();
+                //window.location.href = '/taskPlanner';
+            }else{
+                this.handleOpen();
             }
+        }else{
+            this.handleOpen();
         }
-    }
+    }*/
 
     render() {
         if (localStorage.getItem('remember') === false) return <Redirect to="/" />;
@@ -113,7 +117,7 @@ export class Login extends React.Component {
                                     type="submit"
                                     color="primary"
                                     variant="contained"
-                                    onClick={this.handleClick}  >
+                                    onClick={this.login}  >
                                     Sign Input
                                 </Button><br /><br />
                                 <a href="/Registro" className="Campo">Create Account</a>
