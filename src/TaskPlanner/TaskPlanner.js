@@ -83,7 +83,7 @@ export function TaskPlanner(props) {
   };
 
   const componentDidMount = () => {
-    fetch("http://localhost:8080/tasks")
+    fetch("http://localhost:8080/api/tasks")
       .then(response => response.json())
       .then(data => {
         console.log("data: " + JSON.stringify(data));

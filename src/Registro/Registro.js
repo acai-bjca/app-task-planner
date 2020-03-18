@@ -6,10 +6,11 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import "../Login/Login.css";
 import imgUser from "../imagenes/user.png";
 
+
 export class Registro extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { stateName: '', stateEmail: '', statePassword: '', statePassword2: '', open: false};
+    this.state = { stateName: '', stateEmail: '', statePassword: '', statePassword2: '', open: false };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -29,7 +30,7 @@ export class Registro extends React.Component {
   }
 
   handleClose = () => {
-    this.setState({ open: false});
+    this.setState({ open: false });
   }
 
   handleClick(e) {
@@ -39,16 +40,16 @@ export class Registro extends React.Component {
       console.log("No se registro");
       return;
     } if (this.state.statePassword === this.state.statePassword2) {
-      const newUser = {name: this.state.stateName, email: this.state.stateEmail, passw: this.state.statePassword};
+      const newUser = { name: this.state.stateName, email: this.state.stateEmail, passw: this.state.statePassword };
       localStorage.setItem('user', JSON.stringify(newUser));
-      this.setState({ open: true});
-      console.log("Se registro: "+localStorage.getItem('user'));
+      this.setState({ open: true });
+      console.log("Se registro: " + localStorage.getItem('user'));
       window.location.href = "/";
-    }    
+    }
   }
 
   render() {
-    if (localStorage.getItem('remember') === false) return <Redirect to="/"/>;
+    if (localStorage.getItem('remember') === false) return <Redirect to="/" />;
     return (
       <React.Fragment>
         <CssBaseline />
@@ -97,7 +98,7 @@ export class Registro extends React.Component {
                   onClick={this.handleClick}  >
                   Save
                 </Button><br /><br />
-                
+
                 <Dialog
                   open={this.state.open}
                   onClose={this.handleClose}
@@ -118,7 +119,6 @@ export class Registro extends React.Component {
                 </Dialog>
               </Paper>
             </form>
-
           </div>
         </main>
       </React.Fragment>
